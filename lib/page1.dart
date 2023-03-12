@@ -12,6 +12,15 @@ class page1State extends State<page1>{
         appBar: AppBar(
           title: Text("TO DO LIST"),
         ),
+        floatingActionButton:
+            FloatingActionButton(
+            onPressed: () {  },
+        child: IconButton(
+          icon: Icon(Icons.add,color: Colors.white,),
+          onPressed: (){
+          },
+        ),
+      ),
       ),
     );
   }
