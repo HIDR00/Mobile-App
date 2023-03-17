@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bai_giua_ki/widgets/home.dart';
+import 'package:bai_giua_ki/home.dart';
 void main(){
   runApp(myApp());
 }
