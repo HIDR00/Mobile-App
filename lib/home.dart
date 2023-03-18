@@ -59,10 +59,11 @@ class _HomeState extends State<Home> {
                         top: 0,
                         bottom: 20,
                       ),
-                      child: Text("All to do",
+                      child: Text("TO DO LIST",
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w500,
+                          color: Color(0xFFFF00AD),
                         ),
                       ),
                     ),
@@ -87,9 +88,9 @@ class _HomeState extends State<Home> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     boxShadow: const [BoxShadow(
-                        color: Colors.grey,
+                        color: Color(0xFFFF00AD),
                         offset: Offset(0.0, 0.0),
-                        blurRadius: 10.0,
+                        blurRadius: 5.0,
                         spreadRadius: 0.0,
                     ),
                     ],
@@ -117,7 +118,7 @@ class _HomeState extends State<Home> {
                     style: ElevatedButton.styleFrom(
                       shape: CircleBorder(),
                       padding: EdgeInsets.all(18),
-                      primary: Color(0xFF5F52EE),
+                      primary: Color(0xFFFF00AD),
                       minimumSize: Size(40, 40),
                       elevation: 10,
                     ),
