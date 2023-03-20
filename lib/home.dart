@@ -63,18 +63,29 @@ class _HomeState extends State<Home> {
                 Expanded(
                   child: ListView(
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(
-                        top: 0,
-                        bottom: 20,
-                      ),
-                      child: Text("TO DO LIST",
+                    Stack(
+                      alignment: Alignment.topLeft,
+                  children: [
+                  // Implement the stroke
+                  Text(
+                  'TO DO LIST',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w500,
+                      foreground: Paint()
+                        ..style = PaintingStyle.stroke
+                        ..strokeWidth = 5
+                        ..color = Color(0xFFFF00AD),
+                    ),
+                  ),
+                      Text("TO DO LIST",
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w500,
-                          color: Color(0xFFFF00AD),
+                          color: Colors.white,
                         ),
                       ),
+                  ],
                     ),
                   for(ToDo todoo in _foundToDo)
                   ToDoItem(todo: todoo,
@@ -140,6 +151,7 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
   void _handleToDoChange(ToDo todo) {
     setState(() {
       todo.isDone = !todo.isDone;
