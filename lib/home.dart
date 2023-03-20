@@ -14,32 +14,41 @@ class Home extends StatefulWidget{
 class _HomeState extends State<Home> {
   final toDoList = ToDo.todoList();
   final _toDoController = TextEditingController();
-  // list<ToDo> _foundToDo = [];
-  var mySearchBox = Container(
-    margin: EdgeInsets.only(top: 50,),
-    padding: EdgeInsets.symmetric(horizontal: 15,vertical: 6),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(30),
-    ),
-    child: TextField(
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(0),
-          prefixIcon: Icon(
-            Icons.search,
-            color: Color(0xFF3A3A3A), //Colors.black,
-            size: 30,
-          ),
-          prefixIconConstraints: BoxConstraints(
-            maxHeight: 25,
-            minWidth: 25,
-          ),
-          border: InputBorder.none,
-          hintText: "Search",
-          hintStyle: TextStyle(color: Color(0xFF717171),height: 1.7,fontSize: 18)
+  List<ToDo> _foundToDo = [];
+
+  void initState(){
+    _foundToDo = toDoList;
+    super.initState();
+  }
+  Widget searchBox() {
+    return Container(
+      margin: EdgeInsets.only(top: 50,),
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
       ),
-    ),
-  );
+      child: TextField(
+        onChanged: (value) => _runFilter(value),
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(0),
+            prefixIcon: Icon(
+              Icons.search,
+              color: Color(0xFF3A3A3A), //Colors.black,
+              size: 30,
+            ),
+            prefixIconConstraints: BoxConstraints(
+              maxHeight: 25,
+              minWidth: 25,
+            ),
+            border: InputBorder.none,
+            hintText: "Search",
+            hintStyle: TextStyle(
+                color: Color(0xFF717171), height: 1.7, fontSize: 18)
+        ),
+      ),
+    );
+  }
 
   Widget build(BuildContext context){
     return Scaffold(
@@ -50,7 +59,7 @@ class _HomeState extends State<Home> {
             padding: EdgeInsets.only(top: 5,bottom: 15,right: 15,left: 15),
             child: Column(
               children: [
-                mySearchBox,
+                searchBox(),
                 Expanded(
                   child: ListView(
                   children: [
@@ -67,7 +76,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
-                  for(ToDo todoo in toDoList)
+                  for(ToDo todoo in _foundToDo)
                   ToDoItem(todo: todoo,
                     onToDoChanged: _handleToDoChange,
                     onDeleteItem: _deleteToDoItem,
@@ -147,6 +156,22 @@ class _HomeState extends State<Home> {
     });
     _toDoController.clear();
   }
+  void _runFilter(String enteredKeyWord){
+    List<ToDo> results = [];
+    if(enteredKeyWord.isEmpty){
+      results = toDoList;
+    }else{
+      results = toDoList
+          .where((item) => item.todoText!
+          .toLowerCase()
+          .contains(enteredKeyWord.toLowerCase()))
+          .toList();
+    }
+    setState(() {
+      _foundToDo = results;
+    });
+  }
+
 }
 
 
