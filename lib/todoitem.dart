@@ -2,13 +2,16 @@ import 'package:bai_giua_ki/todo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'todo.dart';
+import 'package:intl/intl.dart';
 class ToDoItem extends StatelessWidget{
   final ToDo todo;
   final onToDoChanged;
   final onDeleteItem;
+
   const ToDoItem ({Key ? key,required this.todo,required this.onDeleteItem,required this.onToDoChanged}) : super(key: key);
   @override
   Widget build(BuildContext context){
+    final isOverdue = DateTime.now().isAfter(todo.deadline);
     return Container(
       margin: EdgeInsets.only(bottom: 20),
       child: ListTile(
@@ -19,12 +22,14 @@ class ToDoItem extends StatelessWidget{
           borderRadius: BorderRadius.circular(20),
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
-        tileColor: Colors.white,
+        tileColor: isOverdue ? Colors.red[100] : Colors.white,
         leading: Icon(
           todo.isDone ? Icons.check_box : Icons.check_box_outline_blank,
           color: Color(0xFFFF00AD),
         ),
         title: Text(todo.todoText!,style: TextStyle(fontSize: 20,color: todo.isDone ? Colors.green : Color(0xFF3A3A3A))),
+        subtitle:
+        Text('Deadline: ${DateFormat.yMd().format(todo.deadline)}'),
         trailing: Container(
           padding: EdgeInsets.all(0), // co hay khong cung duoc
           margin: EdgeInsets.symmetric(vertical: 12),
