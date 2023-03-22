@@ -15,10 +15,6 @@ class _HomeState extends State<Home> {
   final toDoList = ToDo.todoList();
   List<ToDo> _foundToDo = [];
 
-  void initState(){
-    _foundToDo = toDoList;
-    super.initState();
-  }
   Widget searchBox() {
     return Container(
       margin: EdgeInsets.only(top: 50,),
@@ -97,55 +93,6 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          // Align(
-          //   alignment: Alignment.bottomCenter,
-          //   child:  Row(
-          //     children: [
-          //       Expanded(child: Container(
-          //         margin: EdgeInsets.all(7),
-          //         padding: EdgeInsets.all(8),
-          //         decoration: BoxDecoration(
-          //           color: Colors.white,
-          //           boxShadow: const [BoxShadow(
-          //             color: Color(0xFFFF00AD),
-          //             offset: Offset(0.0, 0.0),
-          //             blurRadius: 5.0,
-          //             spreadRadius: 0.0,
-          //           ),
-          //           ],
-          //           borderRadius: BorderRadius.circular(10),
-          //         ),
-          //         child: TextField(
-          //           controller: _toDoController,
-          //           decoration: InputDecoration(
-          //             hintText: "add new todo item",
-          //             border: InputBorder.none,
-          //           ),
-          //         ),
-          //       ),
-          //       ),
-          //       Container(
-          //         margin: EdgeInsets.only(
-          //           right: 20,
-          //           bottom: 10,
-          //         ),
-          //         child: ElevatedButton(
-          //           child: Text("+",style: TextStyle(fontSize: 40),),
-          //           onPressed: (){
-          //             _addToDoItem(_toDoController.text);
-          //           },
-          //           style: ElevatedButton.styleFrom(
-          //             shape: CircleBorder(),
-          //             padding: EdgeInsets.all(18),
-          //             primary: Color(0xFFFF00AD),
-          //             minimumSize: Size(40, 40),
-          //             elevation: 10,
-          //           ),
-          //         ),
-          //       )
-          //     ],
-          //   ),
-          // ),
         ],
       ),
       floatingActionButton: ElevatedButton(
@@ -221,21 +168,59 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Thêm công việc'),
+      shape:
+      RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15)),
+      backgroundColor: Color(0xFFFDEBED),
+      title: Stack(
+        alignment: Alignment.topLeft,
+        children: [
+          // Implement the stroke
+          Text(
+            'Thêm công việc',
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              foreground: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 5
+                ..color = Color(0xFFFF00AD),
+            ),
+          ),
+          Text('Thêm công việc',
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
       content: Form(
         key: _formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            TextFormField(
-              controller: _titleController,
-              decoration: InputDecoration(hintText: 'Nhap cong viec'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'nhap tieu de';
-                }
-                return null;
-              },
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                  border: Border.all(width: 3,color: Color(0xFFFF00AD))
+              ),
+              child: TextFormField(
+                controller: _titleController,
+                decoration: InputDecoration(hintText: 'Nhập công việc',
+                  contentPadding: EdgeInsets.all(0),
+                  prefixIconConstraints: BoxConstraints(
+                    maxHeight: 25,
+                    minWidth: 25,
+                  ),
+                  border: InputBorder.none,
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Nhập tiêu đề';
+                  }
+                  return null;
+                },
+              ),
             ),
             SizedBox(height: 16),
             InkWell(
