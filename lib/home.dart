@@ -148,10 +148,17 @@ class _HomeState extends State<Home> {
           // ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _addTask,
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: ElevatedButton(
+              child: Text("+",style: TextStyle(fontSize: 40),),
+          onPressed: _addTask,
+              style: ElevatedButton.styleFrom(
+                shape: CircleBorder(),
+                padding: EdgeInsets.all(18),
+                primary: Color(0xFFFF00AD),
+                minimumSize: Size(40, 40),
+                elevation: 10,
+              ),
+            ),
      );
 
   }
@@ -222,7 +229,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
           children: [
             TextFormField(
               controller: _titleController,
-              decoration: InputDecoration(hintText: 'chu thich'),
+              decoration: InputDecoration(hintText: 'Nhap cong viec'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'nhap tieu de';
