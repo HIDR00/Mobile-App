@@ -11,7 +11,15 @@ class ToDoItem extends StatelessWidget{
   const ToDoItem ({Key ? key,required this.todo,required this.onDeleteItem,required this.onToDoChanged}) : super(key: key);
   @override
   Widget build(BuildContext context){
-    final isOverdue = DateTime.now().isAfter(todo.deadline);
+    bool isOverdue = DateTime.now().isAfter(todo.deadline);
+    Color? tileColor;
+    if ((isOverdue && todo.isDone)) {
+      tileColor = Colors.white;
+    } else if(isOverdue){
+      tileColor = Colors.red[100];
+    }else {
+      tileColor = Colors.white;
+    }
     return Container(
       margin: EdgeInsets.only(bottom: 20),
       child: ListTile(
@@ -22,7 +30,7 @@ class ToDoItem extends StatelessWidget{
           borderRadius: BorderRadius.circular(20),
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
-        tileColor: isOverdue ? Colors.red[100] : Colors.white,
+        tileColor: tileColor,
         leading: Icon(
           todo.isDone ? Icons.check_box : Icons.check_box_outline_blank,
           color: Color(0xFFFF00AD),
@@ -34,11 +42,11 @@ class ToDoItem extends StatelessWidget{
           padding: EdgeInsets.all(0), // co hay khong cung duoc
           margin: EdgeInsets.symmetric(vertical: 12),
           height: 35,
-            width: 35,
+          width: 35,
           decoration: BoxDecoration(
-            color: Color(0xFFE40327),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Color(0xFF950018))
+              color: Color(0xFFE40327),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: Color(0xFF950018))
           ),
           child: IconButton(
             padding: EdgeInsets.all(5),

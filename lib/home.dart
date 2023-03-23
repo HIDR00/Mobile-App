@@ -14,7 +14,10 @@ class Home extends StatefulWidget{
 class _HomeState extends State<Home> {
   final toDoList = ToDo.todoList();
   List<ToDo> _foundToDo = [];
-
+  void initState(){
+    _foundToDo = toDoList;
+    super.initState();
+  }
   Widget searchBox() {
     return Container(
       margin: EdgeInsets.only(top: 50,),
